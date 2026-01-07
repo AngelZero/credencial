@@ -25,6 +25,7 @@
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
+    html{ height:100%; }
 
     body{
       margin:0;
@@ -35,9 +36,15 @@
         radial-gradient(900px 600px at 85% 35%, rgba(255,255,255,.10), transparent 55%),
         radial-gradient(1000px 700px at 45% 105%, rgba(36,75,124,.55), transparent 55%),
         linear-gradient(180deg, var(--navy), #0b2038 55%, #08192c);
-      display:flex;
-      align-items:center;
-      justify-content:center;
+
+      /* ✅ Evita que se “corte” arriba en móvil */
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x:hidden;
+
+      /* ✅ Ya no centramos con flex */
+      display:block;
+
       padding: max(18px, env(safe-area-inset-top)) 18px max(18px, env(safe-area-inset-bottom));
     }
 
@@ -46,6 +53,7 @@
       display:grid;
       gap:16px;
       justify-items:center;
+      margin: 0 auto;
     }
 
     .id-card{
@@ -104,19 +112,31 @@
       min-width:0;
     }
 
-    .logos{
+    .brand-right{
       display:flex;
       align-items:center;
       gap:10px;
+      flex:0 0 auto;
     }
 
     .brand__logo{
-      width:44px;
-      height:44px;
       object-fit:contain;
       border-radius:12px;
       background: rgba(255,255,255,.07);
       border:1px solid rgba(255,255,255,.12);
+      display:block;
+    }
+
+    /* Logos más grandes y en posiciones pedidas */
+    .brand__logo--tec{
+      width:58px;
+      height:58px;
+      padding:7px;
+    }
+
+    .brand__logo--it{
+      width:48px;
+      height:48px;
       padding:6px;
     }
 
@@ -330,7 +350,7 @@
 
     .wide{ grid-column: 1 / -1; }
 
-    /* VERIFICACIÓN (reemplaza QR) */
+    /* VERIFICACIÓN (sin QR) */
     .verify{
       margin-top:14px;
       padding:14px 12px 12px;
@@ -434,9 +454,11 @@
       padding-bottom:2px;
     }
 
+    /* Responsive */
     @media (min-width: 780px){
       .id-card{ width: 720px; }
       .inner{ padding: 22px 22px 18px; }
+
       .hero{
         grid-template-columns: 140px 1fr;
         gap:18px;
@@ -445,11 +467,13 @@
       h1{ font-size:22px; }
       dl{ grid-template-columns: repeat(3, 1fr); }
       .wide{ grid-column: 1 / -1; }
-      .seals{
-        grid-template-columns: repeat(3, 1fr);
-      }
+
+      .seals{ grid-template-columns: repeat(3, 1fr); }
       .seal{ align-items:center; }
       .brand__name{ font-size:14px; }
+
+      .brand__logo--tec{ width:64px; height:64px; }
+      .brand__logo--it{ width:54px; height:54px; }
     }
   </style>
 </head>
@@ -461,12 +485,8 @@
 
         <header class="brand">
           <div class="brand-left">
-            <div class="logos" aria-label="Logos institucionales">
-              <!-- Logo TecNM -->
-              <img class="brand__logo" src="assets/logo-tecnm.png" alt="Logo TecNM" />
-              <!-- Logo ITMorelia -->
-              <img class="brand__logo" src="assets/logo-itmorelia.png" alt="Logo ITMorelia" />
-            </div>
+            <!-- TecNM izquierda -->
+            <img class="brand__logo brand__logo--tec" src="assets/logo-tecnm.png" alt="Logo TecNM" />
 
             <div class="brand__text">
               <div class="brand__name">Tecnológico Nacional de México</div>
@@ -479,6 +499,9 @@
           </div>
 
           <div class="brand-right">
+            <!-- ITMorelia derecha junto a verificado -->
+            <img class="brand__logo brand__logo--it" src="assets/logo-itmorelia.png" alt="Logo ITMorelia" />
+
             <span class="mini-pill" title="Verificación OK">
               <span class="dot" aria-hidden="true"></span>
               VERIFICADO
@@ -487,7 +510,6 @@
         </header>
 
         <section class="hero">
-          <!-- FOTO -->
           <div class="photo" aria-label="Fotografía">
             <img src="assets/foto.jpg" alt="Fotografía del estudiante" />
           </div>
@@ -552,11 +574,9 @@
           </dl>
         </section>
 
-        <!-- VALIDACIÓN (sin QR) -->
         <section class="verify" aria-label="Verificación">
           <div class="verify__headline">
             <div class="verify__badge" aria-hidden="true">
-              <!-- Check -->
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M20 7.5l-9.2 9.2L4 9.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -573,7 +593,6 @@
           <div class="seals" aria-label="Sellos de verificación">
             <div class="seal">
               <div class="icon" aria-hidden="true">
-                <!-- Shield -->
                 <svg viewBox="0 0 24 24" fill="none">
                   <path d="M12 2l8 4v6c0 5-3.4 9.4-8 10-4.6-.6-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
                 </svg>
@@ -586,7 +605,6 @@
 
             <div class="seal">
               <div class="icon" aria-hidden="true">
-                <!-- Check circle -->
                 <svg viewBox="0 0 24 24" fill="none">
                   <path d="M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0z" stroke="currentColor" stroke-width="2"/>
                   <path d="M7.5 12.2l2.6 2.6 6.4-6.4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -600,7 +618,6 @@
 
             <div class="seal">
               <div class="icon" aria-hidden="true">
-                <!-- Lock -->
                 <svg viewBox="0 0 24 24" fill="none">
                   <path d="M7 11V8a5 5 0 0 1 10 0v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                   <path d="M6 11h12v10H6V11z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
