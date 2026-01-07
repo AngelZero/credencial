@@ -82,7 +82,7 @@
 
     .inner{ position:relative; padding:18px 18px 16px; }
 
-    /* HEADER (arreglado para móvil) */
+    /* HEADER (desktop/tablet base) */
     .brand{
       display:flex;
       align-items:center;
@@ -90,7 +90,7 @@
       gap:12px;
       padding-bottom:14px;
       border-bottom: 1px solid rgba(255,255,255,.12);
-      flex-wrap: wrap; /* ✅ clave para que no se “apriete” */
+      flex-wrap: wrap;
     }
 
     .brand-left{
@@ -98,7 +98,7 @@
       align-items:center;
       gap:12px;
       min-width:0;
-      flex: 1 1 260px; /* permite que tome ancho */
+      flex: 1 1 260px;
     }
 
     .brand-right{
@@ -115,9 +115,10 @@
       background: rgba(255,255,255,.07);
       border:1px solid rgba(255,255,255,.12);
       display:block;
+      flex: 0 0 auto;
     }
 
-    /* ✅ TecNM rectangular (más ancho que alto) */
+    /* ✅ TecNM rectangular */
     .brand__logo--tec{
       width: 96px;
       height: 50px;
@@ -178,6 +179,9 @@
       background: var(--ok);
       box-shadow: 0 0 0 3px rgba(71,227,138,.18);
     }
+
+    /* --- NUEVO: Header móvil en 2 renglones exactos --- */
+    .brand-mobile{ display:none; }
 
     /* HERO */
     .hero{
@@ -354,6 +358,8 @@
       margin-bottom:2px;
     }
     .verify__sub{ font-size:12px; color: var(--muted); line-height:1.35; }
+    /* ✅ Fuerza vigencia al siguiente renglón */
+    #vigencia-inline{ display:block; margin-top:2px; }
 
     .seals{ display:grid; grid-template-columns: 1fr; gap:10px; }
 
@@ -401,27 +407,77 @@
       padding-bottom:2px;
     }
 
-    /* ✅ Ajuste móvil para que el texto no se rompa feo */
+    /* ✅ MÓVIL: reemplaza header por el de 2 renglones que pediste */
     @media (max-width: 420px){
-      .brand__name{ font-size:12.5px; }
-      .brand__sub{
-        flex-direction: column;
-        align-items:flex-start;
-        gap:2px;
-      }
-      .brand__sub .sep{ display:none; }
+      .brand-desktop{ display:none; }
+      .brand-mobile{ display:block; }
 
-      /* El bloque derecho ocupa línea propia si hace falta */
-      .brand-right{
-        width:100%;
-        justify-content:flex-end;
+      .brand-mobile{
+        padding-bottom:14px;
+        border-bottom: 1px solid rgba(255,255,255,.12);
       }
 
-      /* TecNM un poquito más compacto en pantallas muy chicas */
+      .m-row{
+        display:flex;
+        align-items:center;
+        gap:12px;
+      }
+
+      .m-row + .m-row{ margin-top:10px; }
+
+      .m-row .m-title{
+        font-weight: 950;
+        letter-spacing:.3px;
+        font-size:12.7px;
+        text-transform:uppercase;
+        opacity:.96;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        min-width:0;
+        flex: 1 1 auto;
+      }
+
+      /* Fila ITM: texto al centro entre logo y verificado */
+      .m-mid{
+        min-width:0;
+        flex: 1 1 auto;
+        text-align:center;
+        line-height:1.15;
+      }
+      .m-mid .m-sub1{
+        font-size:12px;
+        font-weight:850;
+        color: rgba(238,244,255,.92);
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+      .m-mid .m-sub2{
+        margin-top:2px;
+        font-size:11.5px;
+        color: var(--muted);
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+
+      /* Ajustes de logos móvil */
       .brand__logo--tec{
-        width: 88px;
+        width: 92px;
         height: 46px;
         padding: 7px 9px;
+      }
+      .brand__logo--it{
+        width: 46px;
+        height: 46px;
+        padding: 6px;
+      }
+
+      /* “VERIFICADO” un poco más compacto en móvil */
+      .mini-pill{
+        padding:6px 10px;
+        font-size:11.5px;
       }
     }
 
@@ -440,7 +496,6 @@
       .seals{ grid-template-columns: repeat(3, 1fr); }
       .seal{ align-items:center; }
 
-      /* TecNM más grande en escritorio */
       .brand__logo--tec{ width: 120px; height: 58px; padding: 9px 12px; }
       .brand__logo--it{ width: 54px; height: 54px; }
       .brand__name{ font-size:14px; }
@@ -453,11 +508,10 @@
     <section class="id-card" aria-label="Credencial digital">
       <div class="inner">
 
-        <header class="brand">
+        <!-- HEADER DESKTOP/TABLET (como ya estaba bien) -->
+        <header class="brand brand-desktop">
           <div class="brand-left">
-            <!-- TecNM izquierda (rectangular) -->
             <img class="brand__logo brand__logo--tec" src="assets/logo-tecnm.png" alt="Logo TecNM" />
-
             <div class="brand__text">
               <div class="brand__name">Tecnológico Nacional de México</div>
               <div class="brand__sub">
@@ -469,8 +523,30 @@
           </div>
 
           <div class="brand-right">
-            <!-- ITMorelia derecha + verificado -->
             <img class="brand__logo brand__logo--it" src="assets/logo-itmorelia.png" alt="Logo ITMorelia" />
+            <span class="mini-pill" title="Verificación OK">
+              <span class="dot" aria-hidden="true"></span>
+              VERIFICADO
+            </span>
+          </div>
+        </header>
+
+        <!-- HEADER MÓVIL (exacto como pediste) -->
+        <header class="brand-mobile" aria-label="Encabezado móvil">
+          <!-- Renglón TecNM: solo logo + título -->
+          <div class="m-row">
+            <img class="brand__logo brand__logo--tec" src="assets/logo-tecnm.png" alt="Logo TecNM" />
+            <div class="m-title">Tecnológico Nacional de México</div>
+          </div>
+
+          <!-- Renglón ITM: logo inicio, texto al centro, verificado al final -->
+          <div class="m-row">
+            <img class="brand__logo brand__logo--it" src="assets/logo-itmorelia.png" alt="Logo ITMorelia" />
+
+            <div class="m-mid" aria-label="Instituto y credencial">
+              <div class="m-sub1">Instituto Tecnológico de Morelia</div>
+              <div class="m-sub2">Credencial digital</div>
+            </div>
 
             <span class="mini-pill" title="Verificación OK">
               <span class="dot" aria-hidden="true"></span>
@@ -632,7 +708,7 @@
       const year = now.getFullYear();
 
       statusDesc.innerHTML = `Activo: Inscrito en el semestre <strong>${periodo} ${year}</strong>`;
-      vigInline.textContent = ` • Vigencia: ${periodo} ${year}`;
+      vigInline.textContent = `Vigencia: ${periodo} ${year}`;
 
       const fmt = new Intl.DateTimeFormat("es-MX", {
         year: "numeric",
