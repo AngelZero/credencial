@@ -9,23 +9,17 @@
   <style>
     :root{
       --navy:#0e2a47;
-      --blue:#183a63;
-      --blue-2:#244b7c;
-      --ink:#0b1626;
       --text:#eef4ff;
       --muted:rgba(238,244,255,.78);
-      --card:rgba(255,255,255,.06);
       --stroke:rgba(255,255,255,.14);
       --shadow: 0 18px 45px rgba(0,0,0,.35);
       --accent:#34d1c6;
       --ok:#47e38a;
-      --warn:#ffd66b;
       --radius:22px;
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
-    html{ height:100%; }
 
     body{
       margin:0;
@@ -37,14 +31,10 @@
         radial-gradient(1000px 700px at 45% 105%, rgba(36,75,124,.55), transparent 55%),
         linear-gradient(180deg, var(--navy), #0b2038 55%, #08192c);
 
-      /* ✅ Evita que se “corte” arriba en móvil */
       min-height: 100vh;
       min-height: 100dvh;
       overflow-x:hidden;
-
-      /* ✅ Ya no centramos con flex */
       display:block;
-
       padding: max(18px, env(safe-area-inset-top)) 18px max(18px, env(safe-area-inset-bottom));
     }
 
@@ -90,12 +80,9 @@
       pointer-events:none;
     }
 
-    .inner{
-      position:relative;
-      padding:18px 18px 16px;
-    }
+    .inner{ position:relative; padding:18px 18px 16px; }
 
-    /* HEADER */
+    /* HEADER (arreglado para móvil) */
     .brand{
       display:flex;
       align-items:center;
@@ -103,6 +90,7 @@
       gap:12px;
       padding-bottom:14px;
       border-bottom: 1px solid rgba(255,255,255,.12);
+      flex-wrap: wrap; /* ✅ clave para que no se “apriete” */
     }
 
     .brand-left{
@@ -110,50 +98,54 @@
       align-items:center;
       gap:12px;
       min-width:0;
+      flex: 1 1 260px; /* permite que tome ancho */
     }
 
     .brand-right{
       display:flex;
       align-items:center;
       gap:10px;
-      flex:0 0 auto;
+      flex: 0 0 auto;
+      justify-content:flex-end;
     }
 
     .brand__logo{
       object-fit:contain;
-      border-radius:12px;
+      border-radius:14px;
       background: rgba(255,255,255,.07);
       border:1px solid rgba(255,255,255,.12);
       display:block;
     }
 
-    /* Logos más grandes y en posiciones pedidas */
+    /* ✅ TecNM rectangular (más ancho que alto) */
     .brand__logo--tec{
-      width:58px;
-      height:58px;
-      padding:7px;
+      width: 96px;
+      height: 50px;
+      padding: 8px 10px;
+      border-radius: 16px;
     }
 
+    /* ITM 1:1 */
     .brand__logo--it{
-      width:48px;
-      height:48px;
-      padding:6px;
+      width: 48px;
+      height: 48px;
+      padding: 6px;
+      border-radius: 14px;
     }
 
-    .brand__text{
-      line-height:1.1;
-      min-width:0;
-    }
+    .brand__text{ line-height:1.12; min-width:0; }
+
     .brand__name{
-      font-weight:900;
+      font-weight: 950;
       letter-spacing:.3px;
       font-size:13px;
       text-transform:uppercase;
-      opacity:.95;
+      opacity:.96;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
     }
+
     .brand__sub{
       margin-top:4px;
       font-size:12px;
@@ -204,12 +196,7 @@
       background: rgba(255,255,255,.08);
       box-shadow: 0 10px 24px rgba(0,0,0,.25);
     }
-    .photo img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
+    .photo img{ width:100%; height:100%; object-fit:cover; display:block; }
 
     .role{
       display:inline-flex;
@@ -231,16 +218,8 @@
       color: rgba(238,244,255,.92);
     }
 
-    h1{
-      margin:10px 0 6px;
-      font-size:18px;
-      line-height:1.15;
-      letter-spacing:.2px;
-    }
-    h1 span{
-      display:block;
-      font-weight:900;
-    }
+    h1{ margin:10px 0 6px; font-size:18px; line-height:1.15; letter-spacing:.2px; }
+    h1 span{ display:block; font-weight:950; }
 
     .subline{
       font-size:13px;
@@ -255,7 +234,7 @@
     .program{
       margin-top:10px;
       font-size:13px;
-      font-weight:900;
+      font-weight:950;
       color: rgba(238,244,255,.92);
       padding:10px 12px;
       border-radius: 14px;
@@ -310,11 +289,7 @@
     }
 
     /* DETALLES */
-    .details{
-      margin-top:12px;
-      display:grid;
-      gap:10px;
-    }
+    .details{ margin-top:12px; display:grid; gap:10px; }
 
     dl{
       margin:0;
@@ -344,13 +319,13 @@
     .field dd{
       margin:0;
       font-size:14px;
-      font-weight:900;
+      font-weight:950;
       letter-spacing:.2px;
     }
 
     .wide{ grid-column: 1 / -1; }
 
-    /* VERIFICACIÓN (sin QR) */
+    /* VERIFICACIÓN */
     .verify{
       margin-top:14px;
       padding:14px 12px 12px;
@@ -359,18 +334,12 @@
       gap:12px;
     }
 
-    .verify__headline{
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
+    .verify__headline{ display:flex; align-items:center; gap:12px; }
 
     .verify__badge{
-      width:46px;
-      height:46px;
+      width:46px; height:46px;
       border-radius: 16px;
-      display:grid;
-      place-items:center;
+      display:grid; place-items:center;
       background: rgba(71,227,138,.12);
       border: 1px solid rgba(71,227,138,.28);
       box-shadow: 0 10px 26px rgba(0,0,0,.22);
@@ -384,17 +353,9 @@
       font-size:14px;
       margin-bottom:2px;
     }
-    .verify__sub{
-      font-size:12px;
-      color: var(--muted);
-      line-height:1.35;
-    }
+    .verify__sub{ font-size:12px; color: var(--muted); line-height:1.35; }
 
-    .seals{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:10px;
-    }
+    .seals{ display:grid; grid-template-columns: 1fr; gap:10px; }
 
     .seal{
       display:flex;
@@ -407,32 +368,18 @@
     }
 
     .seal .icon{
-      width:34px;
-      height:34px;
+      width:34px; height:34px;
       border-radius: 14px;
-      display:grid;
-      place-items:center;
+      display:grid; place-items:center;
       background: rgba(52,209,198,.10);
       border: 1px solid rgba(52,209,198,.22);
       flex:0 0 auto;
     }
-
     .seal .icon svg{ width:18px; height:18px; opacity:.95; }
 
-    .seal .txt{
-      display:grid;
-      gap:2px;
-      min-width:0;
-    }
-    .seal .txt b{
-      font-size:12.5px;
-      letter-spacing:.2px;
-    }
-    .seal .txt span{
-      font-size:12px;
-      color: var(--muted);
-      line-height:1.35;
-    }
+    .seal .txt{ display:grid; gap:2px; min-width:0; }
+    .seal .txt b{ font-size:12.5px; letter-spacing:.2px; }
+    .seal .txt span{ font-size:12px; color: var(--muted); line-height:1.35; }
 
     .verify__note{
       font-size:11.8px;
@@ -454,26 +401,49 @@
       padding-bottom:2px;
     }
 
-    /* Responsive */
+    /* ✅ Ajuste móvil para que el texto no se rompa feo */
+    @media (max-width: 420px){
+      .brand__name{ font-size:12.5px; }
+      .brand__sub{
+        flex-direction: column;
+        align-items:flex-start;
+        gap:2px;
+      }
+      .brand__sub .sep{ display:none; }
+
+      /* El bloque derecho ocupa línea propia si hace falta */
+      .brand-right{
+        width:100%;
+        justify-content:flex-end;
+      }
+
+      /* TecNM un poquito más compacto en pantallas muy chicas */
+      .brand__logo--tec{
+        width: 88px;
+        height: 46px;
+        padding: 7px 9px;
+      }
+    }
+
+    /* Responsive escritorio */
     @media (min-width: 780px){
       .id-card{ width: 720px; }
       .inner{ padding: 22px 22px 18px; }
 
-      .hero{
-        grid-template-columns: 140px 1fr;
-        gap:18px;
-      }
+      .hero{ grid-template-columns: 140px 1fr; gap:18px; }
       .photo{ width:140px; height:165px; }
       h1{ font-size:22px; }
+
       dl{ grid-template-columns: repeat(3, 1fr); }
       .wide{ grid-column: 1 / -1; }
 
       .seals{ grid-template-columns: repeat(3, 1fr); }
       .seal{ align-items:center; }
-      .brand__name{ font-size:14px; }
 
-      .brand__logo--tec{ width:64px; height:64px; }
-      .brand__logo--it{ width:54px; height:54px; }
+      /* TecNM más grande en escritorio */
+      .brand__logo--tec{ width: 120px; height: 58px; padding: 9px 12px; }
+      .brand__logo--it{ width: 54px; height: 54px; }
+      .brand__name{ font-size:14px; }
     }
   </style>
 </head>
@@ -485,21 +455,21 @@
 
         <header class="brand">
           <div class="brand-left">
-            <!-- TecNM izquierda -->
+            <!-- TecNM izquierda (rectangular) -->
             <img class="brand__logo brand__logo--tec" src="assets/logo-tecnm.png" alt="Logo TecNM" />
 
             <div class="brand__text">
               <div class="brand__name">Tecnológico Nacional de México</div>
               <div class="brand__sub">
                 <span>Instituto Tecnológico de Morelia</span>
-                <span aria-hidden="true">•</span>
+                <span class="sep" aria-hidden="true">•</span>
                 <span>Credencial digital</span>
               </div>
             </div>
           </div>
 
           <div class="brand-right">
-            <!-- ITMorelia derecha junto a verificado -->
+            <!-- ITMorelia derecha + verificado -->
             <img class="brand__logo brand__logo--it" src="assets/logo-itmorelia.png" alt="Logo ITMorelia" />
 
             <span class="mini-pill" title="Verificación OK">
