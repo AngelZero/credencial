@@ -3,9 +3,485 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Credencial 19121035</title>
+  <meta name="theme-color" content="#0e2a47" />
+  <title>Credencial</title>
+  <style>
+    :root{
+      --navy:#0e2a47;
+      --blue:#183a63;
+      --blue-2:#244b7c;
+      --ink:#0b1626;
+      --text:#eef4ff;
+      --muted:rgba(238,244,255,.78);
+      --card:rgba(255,255,255,.06);
+      --stroke:rgba(255,255,255,.14);
+      --shadow: 0 18px 45px rgba(0,0,0,.35);
+      --accent:#34d1c6;
+      --ok:#47e38a;
+      --warn:#ffd66b;
+      --radius:22px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1100px 700px at 15% 20%, rgba(52,209,198,.22), transparent 60%),
+        radial-gradient(900px 600px at 85% 35%, rgba(255,255,255,.10), transparent 55%),
+        radial-gradient(1000px 700px at 45% 105%, rgba(36,75,124,.55), transparent 55%),
+        linear-gradient(180deg, var(--navy), #0b2038 55%, #08192c);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: max(18px, env(safe-area-inset-top)) 18px max(18px, env(safe-area-inset-bottom));
+    }
+
+    .wrap{
+      width: min(980px, 100%);
+      display:grid;
+      gap:16px;
+      justify-items:center;
+    }
+
+    .id-card{
+      width: min(430px, 100%);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+      backdrop-filter: blur(10px);
+    }
+
+    /* suaves “bandas” decorativas tipo credencial */
+    .id-card::before{
+      content:"";
+      position:absolute;
+      inset:-140px -120px auto auto;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle at 30% 30%, rgba(52,209,198,.20), rgba(52,209,198,0) 60%);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+    .id-card::after{
+      content:"";
+      position:absolute;
+      inset:auto auto -220px -220px;
+      width: 520px;
+      height: 520px;
+      background:
+        radial-gradient(circle at 55% 45%, rgba(255,255,255,.12), rgba(255,255,255,0) 62%),
+        radial-gradient(circle at 50% 50%, rgba(36,75,124,.55), rgba(36,75,124,0) 68%);
+      transform: rotate(-10deg);
+      pointer-events:none;
+    }
+
+    .inner{
+      position:relative;
+      padding:18px 18px 16px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding-bottom:14px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+
+    .brand__logo{
+      width:46px;
+      height:46px;
+      object-fit:contain;
+      border-radius:12px;
+      background: rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.12);
+      padding:6px;
+    }
+
+    .brand__text{
+      line-height:1.1;
+      min-width:0;
+    }
+    .brand__name{
+      font-weight:800;
+      letter-spacing:.3px;
+      font-size:14px;
+      text-transform:uppercase;
+      opacity:.95;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .brand__sub{
+      margin-top:4px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 112px 1fr;
+      gap:14px;
+      padding:16px 0 8px;
+    }
+
+    .photo{
+      width:112px;
+      height:132px;
+      border-radius:16px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+    }
+    .photo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .role{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:.25px;
+    }
+    .role .chip{
+      display:inline-flex;
+      align-items:center;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      padding:4px 10px;
+      border-radius: 999px;
+      font-weight:700;
+      text-transform:uppercase;
+      color: rgba(238,244,255,.92);
+    }
+
+    h1{
+      margin:10px 0 6px;
+      font-size:18px;
+      line-height:1.15;
+      letter-spacing:.2px;
+    }
+    h1 span{
+      display:block;
+      font-weight:800;
+    }
+
+    .subline{
+      font-size:13px;
+      color:var(--muted);
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .subline strong{ color: rgba(238,244,255,.98); }
+
+    .program{
+      margin-top:10px;
+      font-size:13px;
+      font-weight:700;
+      color: rgba(238,244,255,.92);
+      padding:10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+    }
+
+    .status{
+      margin-top:12px;
+      display:grid;
+      gap:8px;
+      padding:12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+    }
+
+    .status__top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border-radius: 999px;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.4px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+    .pill .dot{
+      width:9px;
+      height:9px;
+      border-radius:999px;
+      background: var(--ok);
+      box-shadow: 0 0 0 3px rgba(71,227,138,.18);
+    }
+
+    .status__desc{
+      color: rgba(238,244,255,.90);
+      font-size:12.5px;
+      line-height:1.35;
+    }
+
+    .details{
+      margin-top:12px;
+      display:grid;
+      gap:10px;
+    }
+
+    dl{
+      margin:0;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+
+    .field{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      border-radius: 16px;
+      padding:10px 12px;
+      min-height:62px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .field dt{
+      font-size:11px;
+      color: var(--muted);
+      letter-spacing:.3px;
+      text-transform:uppercase;
+      margin:0 0 6px;
+    }
+    .field dd{
+      margin:0;
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+
+    .wide{ grid-column: 1 / -1; }
+
+    .qr{
+      margin-top:14px;
+      display:grid;
+      justify-items:center;
+      gap:10px;
+      padding:14px 12px 10px;
+      border-top:1px solid rgba(255,255,255,.12);
+    }
+
+    .qr__box{
+      width: 210px;
+      height: 210px;
+      background:#fff;
+      border-radius: 18px;
+      padding:12px;
+      box-shadow: 0 14px 34px rgba(0,0,0,.28);
+      border: 1px solid rgba(0,0,0,.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .qr__box img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      image-rendering:auto;
+    }
+
+    .qr__hint{
+      font-size:12px;
+      color:var(--muted);
+      text-align:center;
+    }
+
+    .foot{
+      margin-top:10px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      font-size:11px;
+      color: rgba(238,244,255,.62);
+      padding-bottom:2px;
+    }
+
+    /* Responsive para escritorio: “tarjeta” más ancha */
+    @media (min-width: 780px){
+      .id-card{ width: 720px; }
+      .inner{ padding: 22px 22px 18px; }
+      .hero{
+        grid-template-columns: 140px 1fr;
+        gap:18px;
+      }
+      .photo{ width:140px; height:165px; }
+      h1{ font-size:22px; }
+      dl{ grid-template-columns: repeat(3, 1fr); }
+      .wide{ grid-column: 1 / -1; }
+      .qr{
+        grid-template-columns: 1fr auto;
+        align-items:center;
+        justify-items:stretch;
+        gap:16px;
+      }
+      .qr__hint{
+        text-align:left;
+        align-self:center;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>OK — ya está publicado</h1>
+  <main class="wrap">
+    <section class="id-card" aria-label="Credencial digital">
+      <div class="inner">
+
+        <header class="brand">
+          <!-- Imagen 1: LOGO -->
+          <img class="brand__logo" src="assets/logo-tecnm.png" alt="Logo institucional" />
+          <div class="brand__text">
+            <div class="brand__name">Tecnológico Nacional de México</div>
+            <div class="brand__sub">Credencial digital</div>
+          </div>
+        </header>
+
+        <section class="hero">
+          <!-- Imagen 2: FOTO -->
+          <div class="photo" aria-label="Fotografía">
+            <img src="assets/foto.jpg" alt="Fotografía del estudiante" />
+          </div>
+
+          <div>
+            <div class="role">
+              <span class="chip">Estudiante</span>
+            </div>
+
+            <h1>
+              GONZÁLEZ GARCÍA
+              <span>ANGEL MARTÍN</span>
+            </h1>
+
+            <div class="subline">
+              <span>No. de control: <strong>19121035</strong></span>
+            </div>
+
+            <div class="program">INGENIERÍA EN SISTEMAS COMPUTACIONALES</div>
+          </div>
+        </section>
+
+        <section class="status" aria-label="Estado">
+          <div class="status__top">
+            <div style="font-weight:900; letter-spacing:.25px;">Estado</div>
+            <span class="pill" id="status-pill">
+              <span class="dot" aria-hidden="true"></span>
+              ACTIVO
+            </span>
+          </div>
+          <div class="status__desc" id="status-desc">
+            Activo: Inscrito en el semestre <strong>—</strong>
+          </div>
+        </section>
+
+        <section class="details" aria-label="Detalles">
+          <dl>
+            <div class="field">
+              <dt>Semestre</dt>
+              <dd>13</dd>
+            </div>
+
+            <div class="field">
+              <dt>IMSS</dt>
+              <dd>IMSS - 075</dd>
+            </div>
+
+            <div class="field">
+              <dt>NSS</dt>
+              <dd>05170140221</dd>
+            </div>
+
+            <div class="field">
+              <dt>Tipo sanguíneo</dt>
+              <dd>O+</dd>
+            </div>
+
+            <div class="field wide">
+              <dt>Contacto de emergencia</dt>
+              <dd>LILIANA JACUINDE MARTÍNEZ</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="qr" aria-label="Código QR">
+          <div>
+            <div style="font-weight:900; letter-spacing:.25px; margin-bottom:8px;">Validación</div>
+            <div class="qr__hint">
+              Escanea el código QR para verificación. La vigencia se ajusta automáticamente al periodo actual.
+            </div>
+          </div>
+
+          <!-- Imagen 3: QR -->
+          <div class="qr__box">
+            <img src="assets/qr.png" alt="Código QR de verificación" />
+          </div>
+        </section>
+
+        <footer class="foot">
+          <span id="generated">Actualizado: —</span>
+          <span>Versión web</span>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const statusDesc = document.getElementById("status-desc");
+      const generated = document.getElementById("generated");
+
+      const now = new Date();
+      const month = now.getMonth();
+      const day = now.getDate();
+
+      const isEneJun = (month < 6) || (month === 6 && day <= 15);
+
+      const periodo = isEneJun ? "Enero – Junio" : "Agosto – Diciembre";
+      const year = now.getFullYear();
+
+      statusDesc.innerHTML = `Activo: Inscrito en el semestre <strong>${periodo} ${year}</strong>`;
+
+      // Fecha legible
+      const fmt = new Intl.DateTimeFormat("es-MX", {
+        year: "numeric",
+        month: "long",
+        day: "2-digit"
+      });
+      generated.textContent = `Actualizado: ${fmt.format(now)}`;
+    })();
+  </script>
 </body>
 </html>
