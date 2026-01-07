@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0e2a47" />
   <title>Credencial</title>
+
   <style>
     :root{
       --navy:#0e2a47;
@@ -24,6 +25,7 @@
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
+
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
@@ -57,7 +59,6 @@
       backdrop-filter: blur(10px);
     }
 
-    /* suaves “bandas” decorativas tipo credencial */
     .id-card::before{
       content:"";
       position:absolute;
@@ -86,17 +87,32 @@
       padding:18px 18px 16px;
     }
 
+    /* HEADER */
     .brand{
       display:flex;
       align-items:center;
+      justify-content:space-between;
       gap:12px;
       padding-bottom:14px;
       border-bottom: 1px solid rgba(255,255,255,.12);
     }
 
+    .brand-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .logos{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
     .brand__logo{
-      width:46px;
-      height:46px;
+      width:44px;
+      height:44px;
       object-fit:contain;
       border-radius:12px;
       background: rgba(255,255,255,.07);
@@ -109,9 +125,9 @@
       min-width:0;
     }
     .brand__name{
-      font-weight:800;
+      font-weight:900;
       letter-spacing:.3px;
-      font-size:14px;
+      font-size:13px;
       text-transform:uppercase;
       opacity:.95;
       white-space:nowrap;
@@ -122,8 +138,36 @@
       margin-top:4px;
       font-size:12px;
       color:var(--muted);
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
     }
 
+    .mini-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border-radius: 999px;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.4px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      text-transform:uppercase;
+      white-space:nowrap;
+      color: rgba(238,244,255,.92);
+    }
+    .mini-pill .dot{
+      width:9px;
+      height:9px;
+      border-radius:999px;
+      background: var(--ok);
+      box-shadow: 0 0 0 3px rgba(71,227,138,.18);
+    }
+
+    /* HERO */
     .hero{
       display:grid;
       grid-template-columns: 112px 1fr;
@@ -162,7 +206,7 @@
       background: rgba(255,255,255,.06);
       padding:4px 10px;
       border-radius: 999px;
-      font-weight:700;
+      font-weight:800;
       text-transform:uppercase;
       color: rgba(238,244,255,.92);
     }
@@ -175,7 +219,7 @@
     }
     h1 span{
       display:block;
-      font-weight:800;
+      font-weight:900;
     }
 
     .subline{
@@ -191,7 +235,7 @@
     .program{
       margin-top:10px;
       font-size:13px;
-      font-weight:700;
+      font-weight:900;
       color: rgba(238,244,255,.92);
       padding:10px 12px;
       border-radius: 14px;
@@ -199,6 +243,7 @@
       background: rgba(255,255,255,.05);
     }
 
+    /* ESTADO */
     .status{
       margin-top:12px;
       display:grid;
@@ -244,6 +289,7 @@
       line-height:1.35;
     }
 
+    /* DETALLES */
     .details{
       margin-top:12px;
       display:grid;
@@ -278,45 +324,104 @@
     .field dd{
       margin:0;
       font-size:14px;
-      font-weight:800;
+      font-weight:900;
       letter-spacing:.2px;
     }
 
     .wide{ grid-column: 1 / -1; }
 
-    .qr{
+    /* VERIFICACIÓN (reemplaza QR) */
+    .verify{
       margin-top:14px;
-      display:grid;
-      justify-items:center;
-      gap:10px;
-      padding:14px 12px 10px;
+      padding:14px 12px 12px;
       border-top:1px solid rgba(255,255,255,.12);
+      display:grid;
+      gap:12px;
     }
 
-    .qr__box{
-      width: 210px;
-      height: 210px;
-      background:#fff;
-      border-radius: 18px;
-      padding:12px;
-      box-shadow: 0 14px 34px rgba(0,0,0,.28);
-      border: 1px solid rgba(0,0,0,.06);
+    .verify__headline{
       display:flex;
       align-items:center;
-      justify-content:center;
-    }
-    .qr__box img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      display:block;
-      image-rendering:auto;
+      gap:12px;
     }
 
-    .qr__hint{
+    .verify__badge{
+      width:46px;
+      height:46px;
+      border-radius: 16px;
+      display:grid;
+      place-items:center;
+      background: rgba(71,227,138,.12);
+      border: 1px solid rgba(71,227,138,.28);
+      box-shadow: 0 10px 26px rgba(0,0,0,.22);
+      flex:0 0 auto;
+    }
+    .verify__badge svg{ width:24px; height:24px; }
+
+    .verify__title{
+      font-weight:950;
+      letter-spacing:.25px;
+      font-size:14px;
+      margin-bottom:2px;
+    }
+    .verify__sub{
       font-size:12px;
-      color:var(--muted);
-      text-align:center;
+      color: var(--muted);
+      line-height:1.35;
+    }
+
+    .seals{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+
+    .seal{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      padding:10px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+
+    .seal .icon{
+      width:34px;
+      height:34px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      background: rgba(52,209,198,.10);
+      border: 1px solid rgba(52,209,198,.22);
+      flex:0 0 auto;
+    }
+
+    .seal .icon svg{ width:18px; height:18px; opacity:.95; }
+
+    .seal .txt{
+      display:grid;
+      gap:2px;
+      min-width:0;
+    }
+    .seal .txt b{
+      font-size:12.5px;
+      letter-spacing:.2px;
+    }
+    .seal .txt span{
+      font-size:12px;
+      color: var(--muted);
+      line-height:1.35;
+    }
+
+    .verify__note{
+      font-size:11.8px;
+      color: rgba(238,244,255,.72);
+      line-height:1.35;
+      padding:10px 12px;
+      border-radius: 14px;
+      border: 1px dashed rgba(255,255,255,.18);
+      background: rgba(255,255,255,.03);
     }
 
     .foot{
@@ -329,7 +434,6 @@
       padding-bottom:2px;
     }
 
-    /* Responsive para escritorio: “tarjeta” más ancha */
     @media (min-width: 780px){
       .id-card{ width: 720px; }
       .inner{ padding: 22px 22px 18px; }
@@ -341,16 +445,11 @@
       h1{ font-size:22px; }
       dl{ grid-template-columns: repeat(3, 1fr); }
       .wide{ grid-column: 1 / -1; }
-      .qr{
-        grid-template-columns: 1fr auto;
-        align-items:center;
-        justify-items:stretch;
-        gap:16px;
+      .seals{
+        grid-template-columns: repeat(3, 1fr);
       }
-      .qr__hint{
-        text-align:left;
-        align-self:center;
-      }
+      .seal{ align-items:center; }
+      .brand__name{ font-size:14px; }
     }
   </style>
 </head>
@@ -361,16 +460,34 @@
       <div class="inner">
 
         <header class="brand">
-          <!-- Imagen 1: LOGO -->
-          <img class="brand__logo" src="assets/logo-tecnm.png" alt="Logo institucional" />
-          <div class="brand__text">
-            <div class="brand__name">Tecnológico Nacional de México</div>
-            <div class="brand__sub">Credencial digital</div>
+          <div class="brand-left">
+            <div class="logos" aria-label="Logos institucionales">
+              <!-- Logo TecNM -->
+              <img class="brand__logo" src="assets/logo-tecnm.png" alt="Logo TecNM" />
+              <!-- Logo ITMorelia -->
+              <img class="brand__logo" src="assets/logo-itmorelia.png" alt="Logo ITMorelia" />
+            </div>
+
+            <div class="brand__text">
+              <div class="brand__name">Tecnológico Nacional de México</div>
+              <div class="brand__sub">
+                <span>Instituto Tecnológico de Morelia</span>
+                <span aria-hidden="true">•</span>
+                <span>Credencial digital</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="brand-right">
+            <span class="mini-pill" title="Verificación OK">
+              <span class="dot" aria-hidden="true"></span>
+              VERIFICADO
+            </span>
           </div>
         </header>
 
         <section class="hero">
-          <!-- Imagen 2: FOTO -->
+          <!-- FOTO -->
           <div class="photo" aria-label="Fotografía">
             <img src="assets/foto.jpg" alt="Fotografía del estudiante" />
           </div>
@@ -395,7 +512,7 @@
 
         <section class="status" aria-label="Estado">
           <div class="status__top">
-            <div style="font-weight:900; letter-spacing:.25px;">Estado</div>
+            <div style="font-weight:950; letter-spacing:.25px;">Estado</div>
             <span class="pill" id="status-pill">
               <span class="dot" aria-hidden="true"></span>
               ACTIVO
@@ -435,17 +552,70 @@
           </dl>
         </section>
 
-        <section class="qr" aria-label="Código QR">
-          <div>
-            <div style="font-weight:900; letter-spacing:.25px; margin-bottom:8px;">Validación</div>
-            <div class="qr__hint">
-              Escanea el código QR para verificación. La vigencia se ajusta automáticamente al periodo actual.
+        <!-- VALIDACIÓN (sin QR) -->
+        <section class="verify" aria-label="Verificación">
+          <div class="verify__headline">
+            <div class="verify__badge" aria-hidden="true">
+              <!-- Check -->
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M20 7.5l-9.2 9.2L4 9.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="verify__title">Credencial verificada</div>
+              <div class="verify__sub">
+                Esta página funciona como evidencia digital de validación.
+                <span id="vigencia-inline" style="font-weight:850; color:rgba(238,244,255,.92);"></span>
+              </div>
             </div>
           </div>
 
-          <!-- Imagen 3: QR -->
-          <div class="qr__box">
-            <img src="assets/qr.png" alt="Código QR de verificación" />
+          <div class="seals" aria-label="Sellos de verificación">
+            <div class="seal">
+              <div class="icon" aria-hidden="true">
+                <!-- Shield -->
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2l8 4v6c0 5-3.4 9.4-8 10-4.6-.6-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="txt">
+                <b>Validación institucional</b>
+                <span>Información presentada con identidad y datos de control.</span>
+              </div>
+            </div>
+
+            <div class="seal">
+              <div class="icon" aria-hidden="true">
+                <!-- Check circle -->
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M7.5 12.2l2.6 2.6 6.4-6.4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="txt">
+                <b>Estado vigente</b>
+                <span>El estado se ajusta automáticamente al periodo actual.</span>
+              </div>
+            </div>
+
+            <div class="seal">
+              <div class="icon" aria-hidden="true">
+                <!-- Lock -->
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M7 11V8a5 5 0 0 1 10 0v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M6 11h12v10H6V11z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="txt">
+                <b>Evidencia digital</b>
+                <span>Diseñada para consulta rápida desde smartphone o escritorio.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="verify__note">
+            <b>Nota:</b> Presenta la credencial física para cotejo.
+            Esta página solo sirve como comprobación visual del estado y vigencia.
           </div>
         </section>
 
@@ -462,19 +632,21 @@
     (function () {
       const statusDesc = document.getElementById("status-desc");
       const generated = document.getElementById("generated");
+      const vigInline = document.getElementById("vigencia-inline");
 
       const now = new Date();
-      const month = now.getMonth();
+      const month = now.getMonth(); // 0=Ene ... 6=Jul
       const day = now.getDate();
 
+      // Enero–Junio si estamos del 1 de enero al 15 de julio (incluido)
       const isEneJun = (month < 6) || (month === 6 && day <= 15);
 
       const periodo = isEneJun ? "Enero – Junio" : "Agosto – Diciembre";
       const year = now.getFullYear();
 
       statusDesc.innerHTML = `Activo: Inscrito en el semestre <strong>${periodo} ${year}</strong>`;
+      vigInline.textContent = ` • Vigencia: ${periodo} ${year}`;
 
-      // Fecha legible
       const fmt = new Intl.DateTimeFormat("es-MX", {
         year: "numeric",
         month: "long",
